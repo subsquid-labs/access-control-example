@@ -1,0 +1,13 @@
+type LiquidationEvent @entity {
+	id: ID!
+	collateralAsset: String! @index
+	debtAsset: String! @index
+	user: String! @index
+	debtToCover: BigInt!
+	liquidatedCollateralAmount: BigInt!
+	liquidator: String! @index
+	receiveAToken: Boolean!
+	block: BigInt! @index
+	timestamp: BigInt! @index
+	hash: String! @index
+}
