@@ -28,7 +28,9 @@ $ sqd serve
 ```
 The server begins to listen at `localhost:4350`. You can verify that by running:
 ```bash
-$ curl -X POST http://localhost:4350/graphql -H 'Content-Type: application/json' -d '{"query":"query MyQuery {squidStatus{height}}"}'
+$ curl -X POST http://localhost:4350/graphql \
+-H 'Content-Type: application/json' \
+-d '{"query":"query MyQuery {squidStatus{height}}"}'
 ```
 The server does not allow any queries from unauthorized users, so the output should be
 ```bash
