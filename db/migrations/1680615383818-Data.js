@@ -1,5 +1,5 @@
-module.exports = class Data1670396395768 {
-    name = 'Data1670396395768'
+module.exports = class Data1680615383818 {
+    name = 'Data1680615383818'
 
     async up(db) {
         await db.query(`CREATE TABLE "liquidation_event" ("id" character varying NOT NULL, "collateral_asset" text NOT NULL, "debt_asset" text NOT NULL, "user" text NOT NULL, "debt_to_cover" numeric NOT NULL, "liquidated_collateral_amount" numeric NOT NULL, "liquidator" text NOT NULL, "receive_a_token" boolean NOT NULL, "block" numeric NOT NULL, "timestamp" numeric NOT NULL, "hash" text NOT NULL, CONSTRAINT "PK_b81c20a3c0b565ceaf4491d66c9" PRIMARY KEY ("id"))`)
@@ -10,6 +10,8 @@ module.exports = class Data1670396395768 {
         await db.query(`CREATE INDEX "IDX_dd2ac914c208f03e17752f5ab6" ON "liquidation_event" ("block") `)
         await db.query(`CREATE INDEX "IDX_2570e6677073084fa46f024e3d" ON "liquidation_event" ("timestamp") `)
         await db.query(`CREATE INDEX "IDX_8b5eb637107bac8579903d40a7" ON "liquidation_event" ("hash") `)
+        await db.query(`CREATE TABLE "user_comment" ("id" character varying NOT NULL, "user" text NOT NULL, "comment" text NOT NULL, CONSTRAINT "PK_09bced71952353c5ae4e40f0f52" PRIMARY KEY ("id"))`)
+        await db.query(`CREATE INDEX "IDX_7f787260bd48c58578250e4335" ON "user_comment" ("user") `)
     }
 
     async down(db) {
@@ -21,5 +23,7 @@ module.exports = class Data1670396395768 {
         await db.query(`DROP INDEX "public"."IDX_dd2ac914c208f03e17752f5ab6"`)
         await db.query(`DROP INDEX "public"."IDX_2570e6677073084fa46f024e3d"`)
         await db.query(`DROP INDEX "public"."IDX_8b5eb637107bac8579903d40a7"`)
+        await db.query(`DROP TABLE "user_comment"`)
+        await db.query(`DROP INDEX "public"."IDX_7f787260bd48c58578250e4335"`)
     }
 }
