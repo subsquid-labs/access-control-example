@@ -83,3 +83,35 @@ outputs
 {"data":{"liquidationEventById":{"liquidator":"0x7a512A3Cf68df453eC76D487E3eaFFECD74d6887","user":"0xA53Fe221Bd861F75907d8Fd496DB1c70779721aA"},"squidStatus":{"height":16870285}}}
 
 ```
+
+## Using authentication data in custom resolvers
+
+To illustrate this functionality I added [custom queries](https://docs.subsquid.io/graphql-api/custom-resolvers/) (see `src/server-extension/resolvers.ts`) that allow users to leave comments and see how many comments they've made so far. Here's an example of Bob adding a new comment:
+```bash
+$ curl -X POST http://localhost:4350/graphql \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCb2IifQ.xdRJEld71Xx7RRn_fHzErShIqMx9Gf1cAV2al1FBH24' \
+-d '{"query":"mutation {addComment(text: \"bobs text\")}"}'
+```
+After that, Bob can see that he has one comment: executing
+```bash
+$ curl -X POST http://localhost:4350/graphql \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCb2IifQ.xdRJEld71Xx7RRn_fHzErShIqMx9Gf1cAV2al1FBH24' \
+-d '{"query":"query MyQuery {countUserComments {total}}"}'
+```
+yields
+```
+{"data":{"countUserComments":[{"total":1}]}}
+```
+If Alice subsequently executes the same query, she will see the counter for her own posts:
+```bash
+$ curl -X POST http://localhost:4350/graphql \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbGljZSJ9.3r0K4FQQY_ghhPp48USw1gJQs1WbaPNt3BCv2EaNnlY' \
+-d '{"query":"query MyQuery {countUserComments {total}}"}'
+```
+returns
+```
+{"data":{"countUserComments":[{"total":0}]}}
+```
