@@ -2,8 +2,8 @@ import {
 	Arg,
 	Field,
 	ObjectType,
-	InputType,
 	Query,
+	Mutation,
 	Resolver
 } from 'type-graphql'
 import type { EntityManager } from 'typeorm'
@@ -34,4 +34,11 @@ export class UserCommentResolver {
       FROM user_comment`)
     return result
   }
+
+	@Mutation(() => Boolean)
+	async addComment(@Arg('text') commentText: string): Promise<Boolean> {
+		let manager = await this.tx()
+		await manager.save(new UserComment({id: 'fsdfsdfsdfsd', user: 'anonymous', comment: commentText}))
+		return true
+	}
 }
