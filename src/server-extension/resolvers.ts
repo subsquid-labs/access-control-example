@@ -25,9 +25,10 @@ export class UserCommentResolver {
 	constructor(private tx: () => Promise<EntityManager>) {}
 
 	@Query(() => [UserCommentCountQueryResult])
-	async countUserComments(): Promise<UserCommentCountQueryResult[]> {
+	async countUserComments(@Ctx() ctx: any): Promise<UserCommentCountQueryResult[]> {
+		let user = ctx.openreader.user
 		let manager = await this.tx()
-		let result: UserCommentCountQueryResult[] = await manager.getRepository(UserComment).query(`SELECT COUNT(id) as total FROM user_comment`)
+		let result: UserCommentCountQueryResult[] = await manager.getRepository(UserComment).query(`SELECT COUNT(*) as total FROM user_comment WHERE "user" = '${user}'`)
 		return result
 	}
 

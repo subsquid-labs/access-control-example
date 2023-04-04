@@ -4,7 +4,9 @@ import jwt from 'jsonwebtoken'
 function authorizeUser(user: string | undefined, requestedOperations: (string | undefined)[]): boolean {
 	let selectionsAuthorizedForBob = new Set([
 		'liquidationEventById',
-		'squidStatus'
+		'squidStatus',
+		'countUserComments',
+		'addComment'
 	])
 
 	switch(user) {
