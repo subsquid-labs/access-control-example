@@ -28,6 +28,7 @@ export async function requestCheck(req: RequestCheckContext): Promise<boolean | 
 		try {
 			let decoded = jwt.verify(token, secretKey)
 			let user = decoded.sub?.toString()
+			req.context.openreader.user = user
 			let requestedOperations = req.operation.selectionSet.selections.map(s => s.loc?.startToken.value)
 			return authorizeUser(user, requestedOperations)
 		} catch(err) {

@@ -4,7 +4,8 @@ import {
 	ObjectType,
 	Query,
 	Mutation,
-	Resolver
+	Resolver,
+	Ctx
 } from 'type-graphql'
 import type { EntityManager } from 'typeorm'
 import { UserComment } from '../model/generated'
@@ -25,15 +26,15 @@ export class UserCommentResolver {
 
 	@Query(() => [UserCommentCountQueryResult])
 	async countUserComments(): Promise<UserCommentCountQueryResult[]> {
-		const manager = await this.tx()
-		const result: UserCommentCountQueryResult[] = await manager.getRepository(UserComment).query(`SELECT COUNT(id) as total FROM user_comment`)
+		let manager = await this.tx()
+		let result: UserCommentCountQueryResult[] = await manager.getRepository(UserComment).query(`SELECT COUNT(id) as total FROM user_comment`)
 		return result
 	}
 
 	@Mutation(() => Boolean)
-	async addComment(@Arg('text') comment: string): Promise<Boolean> {
+	async addComment(@Arg('text') comment: string, @Ctx() ctx: any): Promise<Boolean> {
+		let user = ctx.openreader.user
 		let manager = await this.tx()
-		let user = 'anonymous'
 		await manager.save(new UserComment({
 			id: `${user}-${comment}`,
 			user,
