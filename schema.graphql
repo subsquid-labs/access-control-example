@@ -11,3 +11,9 @@ type LiquidationEvent @entity {
 	timestamp: BigInt! @index
 	hash: String! @index
 }
+
+type UserComment @entity {
+	id: ID!
+	user: String! @index
+	comment: String!
+}
