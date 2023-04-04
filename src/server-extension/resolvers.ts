@@ -25,15 +25,27 @@ export class UserCommentResolver {
 	constructor(private tx: () => Promise<EntityManager>) {}
 
 	@Query(() => [UserCommentCountQueryResult])
-	async countUserComments(@Ctx() ctx: any): Promise<UserCommentCountQueryResult[]> {
+	async countUserComments(
+		@Ctx() ctx: any
+	): Promise<UserCommentCountQueryResult[]> {
 		let user = ctx.openreader.user
 		let manager = await this.tx()
-		let result: UserCommentCountQueryResult[] = await manager.getRepository(UserComment).query(`SELECT COUNT(*) as total FROM user_comment WHERE "user" = '${user}'`)
+		let result: UserCommentCountQueryResult[] =
+			await manager
+				.getRepository(UserComment)
+				.query(`
+					SELECT COUNT(*) as total
+					FROM user_comment
+					WHERE "user" = '${user}'
+				`)
 		return result
 	}
 
 	@Mutation(() => Boolean)
-	async addComment(@Arg('text') comment: string, @Ctx() ctx: any): Promise<Boolean> {
+	async addComment(
+		@Arg('text') comment: string,
+		@Ctx() ctx: any
+	): Promise<Boolean> {
 		let user = ctx.openreader.user
 		let manager = await this.tx()
 		await manager.save(new UserComment({
