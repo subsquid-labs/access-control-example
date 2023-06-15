@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
-    "@subsquid/big-decimal": "^0.0.0",
+    "@subsquid/big-decimal": "^1.0.0",
     "@subsquid/evm-processor": "^1.0.0",
     "@subsquid/evm-typegen": "2.1.1",
     "@subsquid/graphql-server": "3.3.2",
