@@ -2,9 +2,9 @@
 
 **Disclaimer: the code in this repository is provided purely for illustrative properties and is not in any way guaranteed to be secure by Subsquid. Only use it if you know what you're doing.**
 
-This example illustrates how basic authentication and authorization can be built into [Subsquid](https://subsquid.io)'s [GraphQL server](https://docs.subsquid.io/graphql-api/). Two users, Alice and Bob, are authenticated using [JSON Web tokens](https://jwt.io) and authorized to perform different root-level GraphQL selections.
+This example illustrates how basic authentication and authorization can be built into [Subsquid](https://sqd.dev)'s [GraphQL server](https://docs.sqd.dev/en/sdk). Two users, Alice and Bob, are authenticated using [JSON Web tokens](https://jwt.io) and authorized to perform different root-level GraphQL selections.
 
-The underlying data comes from a blockchain indexer, or a "squid" in Subsquid terms. It describes `LiquidationCall` events emitted by the [AAVE V2 Lending Pool contract](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) on Ethereum mainnet. Alice can use the [full set of supported queries](https://docs.subsquid.io/graphql-api/overview/#supported-queries), while Bob can only perform `liquidationEventById` and `squidStatus` queries. 
+The underlying data comes from a blockchain indexer, or a "squid" in Subsquid terms. It describes `LiquidationCall` events emitted by the [AAVE V2 Lending Pool contract](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) on Ethereum mainnet. Alice can use the [full set of supported queries](https://docs.sqd.dev/en/sdk), while Bob can only perform `liquidationEventById` and `squidStatus` queries. 
 
 Dependencies: NodeJS, Docker, cURL.
 
